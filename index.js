@@ -31,6 +31,17 @@ app.use("/user", userRoute);
 app.use("/auth", authRoute);
 app.use("/order", orderRoute);
 
+app.use((error, req, res, next) => {
+    const errorMessage = error.message || "Something went wrong";
+    const errorStatus = error.status || 500;
+  
+    res.status(errorStatus).json({
+      success: false,
+      status: errorStatus,
+      message: errorMessage,
+    });
+  });
+
 app.listen(4000, () => {
   console.log("App is running on port 4000");
 });
