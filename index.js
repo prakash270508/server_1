@@ -5,6 +5,7 @@ const authRoute = require("./routes/auth.js");
 const orderRoute = require("./routes/orderRoute.js");
 const cookieParser = require("cookie-parser");
 const { connectDB } = require("./utils/db");
+const cors = require('cors')
 connectDB();
 
 let databaseMessage = "";
@@ -14,6 +15,7 @@ connectDB().then((data) => {
 });
 
 app.use(express.json());
+app.use(cors())
 
 app.get("/", (req, res) => {
   res.send("All working");
