@@ -1,17 +1,24 @@
-const express = require('express')
-const app = express()
+const express = require("express");
+const app = express();
+const { connectDB } = require("./utils/db");
+connectDB();
 
-app.use(express.json())
+let databaseMessage = connectDB();
 
-app.get('/', (req, res)=>{
-    res.send("All working")
-})
+app.use(express.json());
 
-app.get('/me', (req, res)=>{
-    res.json({message :"All working" })
-})
+app.get("/", (req, res) => {
+  res.send("All working");
+});
 
+app.get("/me", (req, res) => {
+  res.json({ message: "All working" });
+});
 
-app.listen(4000, ()=>{
-    console.log("App is running on port 4000")
-})
+app.get("/db", (req, res) => {
+  res.json({ message: databaseMessage });
+});
+
+app.listen(4000, () => {
+  console.log("App is running on port 4000");
+});
