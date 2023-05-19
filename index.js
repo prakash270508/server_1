@@ -7,8 +7,8 @@ app.get('/', (req, res)=>{
     res.send("All working")
 })
 
-app.get('/', (req, res)=>{
-    res.send("All working")
+app.get('/me', (req, res)=>{
+    res.send("All working me directory")
 })
 
 
