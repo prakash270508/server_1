@@ -165,9 +165,7 @@ exports.forgetPassword = async (req, res, next) => {
 
     await user.save({ validateBeforeSave: false });
 
-    const resetLink = `${req.protocol}://${req.get(
-      "host"
-    )}/auth/reset-password/${resetToken}`;
+    const resetLink = `https://server-1-3hcf.vercel.app/reset-password/${resetToken}`;
 
     const message = `${user.username} Your password reset link is \n\n ${resetLink} \n\n It is valid till 15mins Please ignore if you not requested for this.`;
 
