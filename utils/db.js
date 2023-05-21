@@ -2,11 +2,9 @@ const mongoose = require("mongoose");
 
 exports.connectDB = async () => {
   try {
-    await mongoose.connect('mongodb+srv://prakash0508:21072ppp@cluster0.cai9w2w.mongodb.net/e-com');
-    console.log("Connected to database");
-    return "All working good from database"
-
+    await mongoose.connect(process.env.DATABASE_URL);
+    console.log("Connected to database".gray.bold);
   } catch (error) {
-    console.log("Not Connected to database");
+    console.log("Not Connected to database".red.bold);
   }
 };

@@ -1,49 +1,45 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
+const colors = require("colors");
+const dotenv = require("dotenv");
 const userRoute = require("./routes/userRoute.js");
 const authRoute = require("./routes/auth.js");
 const orderRoute = require("./routes/orderRoute.js");
 const cookieParser = require("cookie-parser");
-const { connectDB } = require("./utils/db");
-const cors = require('cors')
+const { connectDB } = require("./utils/db.js");
+dotenv.config();
 connectDB();
 
-let databaseMessage = "";
-connectDB().then((data) => {
-  databaseMessage = data;
-  console.log(data);
-});
+const PORT = process.env.PORT || 5000;
 
+app.use(cookieParser());
 app.use(express.json());
-app.use(cors())
 
-app.get("/", (req, res) => {
-  res.send("All working");
-});
+app.use(cors());
 
-app.get("/me", (req, res) => {
-  res.json({ message: "All working" });
-});
-
-app.get("/db", (req, res) => {
-  res.json({ message: databaseMessage });
-});
-
+//Routes
 app.use("/user", userRoute);
 app.use("/auth", authRoute);
 app.use("/order", orderRoute);
 
-app.use((error, req, res, next) => {
-    const errorMessage = error.message || "Something went wrong";
-    const errorStatus = error.status || 500;
-  
-    res.status(errorStatus).json({
-      success: false,
-      status: errorStatus,
-      message: errorMessage,
-    });
-  });
+//
+app.get('/', (req, res)=>{
+  res.send("Woking fine")
+})
 
-app.listen(4000, () => {
-  console.log("App is running on port 4000");
+//Error handlling
+app.use((error, req, res, next) => {
+  const errorMessage = error.message || "Something went wrong";
+  const errorStatus = error.status || 500;
+
+  res.status(errorStatus).json({
+    success: false,
+    status: errorStatus,
+    message: errorMessage,
+  });
+});
+
+app.listen(PORT, () => {
+  console.log(`App is running on port ${PORT}`.gray.bold);
 });

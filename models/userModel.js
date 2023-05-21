@@ -17,12 +17,14 @@ const UserSchema = new mongoose.Schema(
     },
     noOfOrders: {
       type: Number,
-      default : 0
+      default: 0,
     },
     isAdmin: {
       type: Boolean,
       default: false,
     },
+    resetPasswordToken: String,
+    resetPasswordExpire: Date,
   },
   { timestamps: true }
 );

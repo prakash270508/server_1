@@ -9,7 +9,7 @@ const { verifyToken, verifyAdmin ,  verifySelf} = require("../utils/authenticati
 
 const router = express.Router();
 
-router.route("/allUsers").get(allUsers);
+router.route("/allUsers").get(verifyToken, verifyAdmin, allUsers);
 router
   .route("/:id")
   .get(verifyToken, getUser)

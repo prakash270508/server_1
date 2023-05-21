@@ -4,7 +4,9 @@ const {
   login,
   logout,
   check,
-  me
+  me,
+  forgetPassword,
+  resetPassword
 } = require("../controller/userController");
 
 const { verifyToken , verifyAdmin} = require("../utils/authentication");
@@ -17,5 +19,7 @@ router.route("/login").post(login);
 router.route("/logout").post(logout);
 router.route("/me").get(verifyToken, me);
 router.route("/check").get(verifyToken,verifyAdmin, check);
+router.route('/forget-password').post(forgetPassword)
+router.route('/reset-password/:token').post(resetPassword)
 
 module.exports = router;
